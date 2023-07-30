@@ -13,6 +13,12 @@ public class Startup
         services.AddDbContext<ApiDbContext>(options =>
             options.UseSnakeCaseNamingConvention()
         );
+
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = "localhost:6380";
+            options.InstanceName = "tests-redis";
+        });
     }
 
     public static void Configure(IApplicationBuilder app)

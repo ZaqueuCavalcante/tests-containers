@@ -12,6 +12,7 @@ namespace TESTS;
 public class ApiWebAppFactory : WebApplicationFactory<Startup>
 {
     private readonly PostgreSqlContainer _postgreSqlContainer = new PostgreSqlBuilder()
+        .WithName("tests-postgres")
         .WithImage("postgres:latest")
         .WithEnvironment("POSTGRES_DB", "api-tests-db")
         .WithEnvironment("POSTGRES_USER", "postgres")
@@ -21,9 +22,15 @@ public class ApiWebAppFactory : WebApplicationFactory<Startup>
         .Build();
 
     private readonly RedisContainer _redisContainer = new RedisBuilder()
+        .WithName("tests-redis")
+        .WithPortBinding(6380, 6379)
         .Build();
 
     private readonly RabbitMqContainer _rabbitMqContainer = new RabbitMqBuilder()
+        .WithName("tests-rabbitmq")
+        .WithEnvironment("RABBITMQ_DEFAULT_USER", "guest")
+        .WithEnvironment("RABBITMQ_DEFAULT_PASS", "guest")
+        .WithPortBinding(5672, 5672)
         .Build();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
