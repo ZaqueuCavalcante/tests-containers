@@ -1,2 +1,3 @@
-# tests-containers
-Integration tests using the Testcontainers lib.
+# TESTS CONTAINERS
+
+Integration tests sample using the Testcontainers lib.
